@@ -6,7 +6,7 @@ import Foundation
 
 public struct QudNetworkKit {
   private let networkManager: NetworkManager
-  
+
   public init() {
     self.networkManager = .init(mapper: RequestMapper())
   }
