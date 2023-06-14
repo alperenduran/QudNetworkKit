@@ -46,9 +46,9 @@ do {
 
 In the example above, userRequestDraft represents an instance of a request draft object that conforms to the RequestDraft protocol. The request method is called with the request draft, and it returns the decoded response object of type User (assuming User is a decodable type).
 
-Customization:
+## Customization:
 
-RequestDraft Protocol:
+### RequestDraft Protocol:
 The QudNetworkKit expects request drafts to conform to the RequestDraft protocol. This protocol allows you to define the necessary properties and methods required for making API requests. You can conform to this protocol in your custom request draft types.
 
 ```swift
@@ -64,11 +64,11 @@ public protocol RequestDraft {
 }
 ```
 
-Contributing:
+## Contributing:
 
 Contributions to QudNetworkKit are welcome! If you find any issues or have suggestions for improvements, please feel free to submit a pull request or open an issue on the GitHub repository.
 
-License:
+## License:
 
 QudNetworkKit is released under the MIT License. See the LICENSE file for more information.
 
