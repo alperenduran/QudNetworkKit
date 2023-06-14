@@ -10,8 +10,8 @@ protocol RequestMapping {
 
 struct RequestMapper: RequestMapping {
   func map(with draft: any RequestDraft) throws -> URLRequest {
-    let baseURL = draft.baseURL.appendingPathExtension(draft.path)
-    var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: false)
+    var urlComponents = URLComponents(url: draft.baseURL, resolvingAgainstBaseURL: false)
+    urlComponents?.path = draft.path
     urlComponents?.queryItems = draft.parameters?.map { key, value in
       URLQueryItem(name: key, value: "\(value)")
     }
