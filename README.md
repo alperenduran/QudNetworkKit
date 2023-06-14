@@ -1,2 +1,3 @@
 # QudNetworkKit
-Network for my Swift Applications
+
+A description of this package.
