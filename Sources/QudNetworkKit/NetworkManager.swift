@@ -11,44 +11,24 @@ struct NetworkManager {
     self.mapper = mapper
   }
 
-  func request
-  <
-    T: Decodable,
-    R: RequestDraft
-  >
-  (
-    _ request: R,
-    completion: @escaping (Result<T, Error>) -> Void
-  ) {
+  func request<T: Decodable, R: RequestDraft>(_ request: R) async throws -> T {
     var urlRequest: URLRequest?
     do {
       urlRequest = try mapper.map(with: request)
     } catch {
-      completion(.failure(NetworkError.invalidURL))
+      throw NetworkError.invalidURL
     }
 
     guard let urlRequest = urlRequest else {
-      completion(.failure(NetworkError.invalidURL))
-      return
+      throw NetworkError.invalidURL
     }
+    let (data, _) = try await URLSession.shared.data(for: urlRequest)
 
-    URLSession.shared.dataTask(with: urlRequest) { data, response, error in
-      if let error = error {
-        completion(.failure(error))
-        return
-      }
-
-      guard let data = data else {
-        completion(.failure(NetworkError.requestFailed))
-        return
-      }
-
-      do {
-        let decodedData = try JSONDecoder().decode(T.self, from: data)
-        completion(.success(decodedData))
-      } catch {
-        completion(.failure(error))
-      }
-    }.resume()
+    do {
+      let decodedData = try JSONDecoder().decode(T.self, from: data)
+      return decodedData
+    } catch {
+      throw error
+    }
   }
 }
