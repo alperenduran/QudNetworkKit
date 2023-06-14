@@ -14,7 +14,7 @@ To use QudNetworkKit in your project, follow these steps:
 
 Add the QudNetworkKit package as a dependency in your project. You can do this by adding the following line to your Package.swift file:
 
-```
+```swift
 dependencies: [
     .package(url: "https://github.com/your-account/QudNetworkKit.git", from: "1.0.0")
 ]
@@ -22,7 +22,7 @@ dependencies: [
 
 Import the QudNetworkKit module in your source files:
 
-```
+```swift
 import QudNetworkKit
 ```
 
@@ -30,7 +30,8 @@ Usage:
 To use QudNetworkKit in your code, follow these steps:
 
 Create an instance of QudNetworkKit:
-```
+
+```swift
 let networkKit = QudNetworkKit()
 
 // Make a network request by calling the request method:
@@ -49,7 +50,8 @@ Customization:
 
 RequestDraft Protocol:
 The QudNetworkKit expects request drafts to conform to the RequestDraft protocol. This protocol allows you to define the necessary properties and methods required for making API requests. You can conform to this protocol in your custom request draft types.
-```
+
+```swift
 public protocol RequestDraft {
   associatedtype Response: Decodable
 
