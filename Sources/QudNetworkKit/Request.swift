@@ -6,7 +6,7 @@ import Foundation
 
 public protocol RequestDraft {
   associatedtype Response: Decodable
-
+  
   var baseURL: URL { get }
   var path: String { get }
   var method: HTTPMethod { get }
@@ -16,8 +16,8 @@ public protocol RequestDraft {
 }
 
 public enum HTTPMethod: String {
-    case get = "GET"
-    case post = "POST"
-    case put = "PUT"
-    case delete = "DELETE"
+  case get = "GET"
+  case post = "POST"
+  case put = "PUT"
+  case delete = "DELETE"
 }
