@@ -17,18 +17,30 @@ final class RequestMapperTests: XCTestCase {
   func testMapsCorrectly() throws {
     let draft = MockRequest()
     let result = try! sut.map(with: draft)
+    let network = QudNetworkKit()
+    let expectation = XCTestExpectation(description: "Async function expectation")
 
     XCTAssertEqual(
       result.url?.absoluteString,
-      "https://api.api-ninjas.com/v1/loremipsum?paragraphs=5"
+      "https://api.api-ninjas.com/v1/loremipsum?paragraphs=1"
     )
+
+    Task {
+      do {
+        let result = try await network.request(MockRequest(), response: MockResponse.self)
+        XCTAssertNotNil(result.text)
+        expectation.fulfill()
+      } catch {
+        XCTFail("Error: \(error)")
+      }
+    }
+
+    wait(for: [expectation], timeout: 10)
   }
 }
 
 struct MockRequest: RequestDraft {
-  let count: Int = 5
-
-  typealias Response = MockResponse
+  let count: Int = 1
 
   var baseURL: URL {
     URL(string: "https://api.api-ninjas.com")!
@@ -49,7 +61,7 @@ struct MockRequest: RequestDraft {
   }
 
   var headers: [String : String]? {
-    nil
+    ["X-Api-Key": "addyourtoken"]
   }
 
   var body: Data? {
