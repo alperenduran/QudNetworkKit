@@ -11,7 +11,7 @@ struct NetworkManager {
     self.mapper = mapper
   }
   
-  func request<T: Decodable, R: RequestDraft>(_ request: R) async throws -> T {
+  func request<T: Decodable>(_ request: RequestDraft, response: T.Type) async throws -> T {
     var urlRequest: URLRequest?
     do {
       urlRequest = try mapper.map(with: request)
@@ -25,7 +25,7 @@ struct NetworkManager {
     let (data, _) = try await URLSession.shared.data(for: urlRequest)
     
     do {
-      let decodedData = try JSONDecoder().decode(T.self, from: data)
+      let decodedData = try JSONDecoder().decode(response.self, from: data)
       return decodedData
     } catch {
       throw error
