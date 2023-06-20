@@ -11,7 +11,7 @@ public struct QudNetworkKit {
     self.networkManager = .init(mapper: RequestMapper())
   }
 
-  func request<T: Decodable>(_ draft: RequestDraft, response: T.Type) async throws -> T {
+  public func request<T: Decodable>(_ draft: RequestDraft, response: T.Type) async throws -> T {
     do {
       let data = try await networkManager.request(draft, response: response.self)
       return data
