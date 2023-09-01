@@ -16,7 +16,7 @@ Add the QudNetworkKit package as a dependency in your project. You can do this b
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/your-account/QudNetworkKit.git", from: "1.0.0")
+    .package(url: "https://github.com/alperenduran/QudNetworkKit.git", from: "1.0.0")
 ]
 ```
 
